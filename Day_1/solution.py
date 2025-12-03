@@ -44,7 +44,7 @@ for movement in dial_inputs:
 
     if direction is LEFT_DIRECTION:
         current_position -= movement_count
-    else if direciton is RIGHT_DIRECTION:
+    elif direciton is RIGHT_DIRECTION:
         current_position += movement_count
 
     current_position %= 100
