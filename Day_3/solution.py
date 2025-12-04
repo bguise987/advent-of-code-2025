@@ -11,9 +11,9 @@ total_output_joltage = 0
 def find_max_joltage(battery):
     max_joltage = 0
     for x in range(len(battery)):
-        for y in range(x, len(battery)):
+        for y in range(x + 1, len(battery)):
             # Combine strings, then convert to int
-            joltage = int(x + y)
+            joltage = int(battery[x] + battery[y])
             if joltage > max_joltage:
                 max_joltage = joltage
     return max_joltage
