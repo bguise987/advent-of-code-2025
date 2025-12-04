@@ -11,10 +11,17 @@ from pathlib import Path
 
 invalid_id_sum = 0
 
-# TODO: How do we identify a pattern in the ID?
+# How do we identify a pattern in the ID?
 # Convert to string
-# Invalid IDs have pattern repeated EXACTLY TWICE
+# Invalid IDs have pattern repeated AT LEAST TWICE
 # Divide string in half, compare first and second half
+
+# Helper function!
+# Input: sequence, whole string
+# Output: Count of how many times that sequence appears in the string
+# Maybe we didn't need this helper function...oh well
+def find_sequence_count(sequence, search_string):
+    return search_string.count(sequence)
 
 # Open the input file
 with open(Path('input.txt')) as f:
@@ -35,20 +42,18 @@ for search_range in db_ranges:
         # Convert the number to a string
         test_string = str(index)
 
-        str_len = len(test_string)
+        # Iterate through possible string sequences (len 1, 2, 3, 4...)
+        for sequence_len in range(1, len(test_string)):
+            sequence = test_string[0:sequence_len]
+            # Pass sequence and search string into find_sequence_count
+            sequence_count = find_sequence_count(sequence, test_string)
+            # If sequence count >= 2, add to invalid_id_sum and move onto next database ID (break out of for loop)
+            if sequence_count >= 2:
+                invalid_id_sum += index
+                break
 
-        # If the string can't be divided evenly in half, move on
-        if str_len % 2 != 0:
-            continue
+     
 
-        half_str = int(str_len / 2)
-        # Divide the string in half
-        first_half = test_string[0:half_str]
-        second_half = test_string[half_str:]
-
-        # If the halves match, add it to our total
-        if first_half == second_half:
-            invalid_id_sum += index
 
 
 print(f'Searched through DB entries...')
