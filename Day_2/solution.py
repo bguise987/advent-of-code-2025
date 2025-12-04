@@ -30,6 +30,7 @@ for search_range in db_ranges:
     first_index = int(first_index)
     last_index = int(last_index)
     
+    # +1 to last_index since they're given to us inclusive, and range()'s second arg is exclusive
     for index in range(first_index, last_index + 1):
         # Convert the number to a string
         test_string = str(index)
