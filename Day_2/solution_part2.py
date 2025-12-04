@@ -19,9 +19,30 @@ invalid_id_sum = 0
 # Helper function!
 # Input: sequence, whole string
 # Output: Count of how many times that sequence appears in the string
-# Maybe we didn't need this helper function...oh well
 def find_sequence_count(sequence, search_string):
-    return search_string.count(sequence)
+    # We need it to be repeated patterns, not just the same digit appearing twice
+    # Ex: 78847 should not return 2 for '7'
+    sequence_count = 0
+    # If it does not fit evenly, return -1
+    if len(search_string) % len(sequence) != 0:
+        return -1
+
+    # This is how many sequences to expect if it matches the pattern of an invalid ID
+    expected_sequence_count = int(len(search_string) / len(sequence))
+
+    # Divide search_string into chunks the size of the sequence string
+    chunks = list(map(''.join, zip(*[iter(search_string)]*len(sequence))))
+
+    # Iterate through chunks, if they match the sequence, increment sequence_count
+    for chunk in chunks:
+        if sequence == chunk:
+            sequence_count += 1
+
+    # Helps us check if sequence repeats consecutively, not just APPEARS 2+ times
+    if sequence_count == expected_sequence_count:
+        return sequence_count
+    else:
+        return -1
 
 # Open the input file
 with open(Path('input.txt')) as f:
