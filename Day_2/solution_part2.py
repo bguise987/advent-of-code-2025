@@ -57,7 +57,7 @@ for search_range in db_ranges:
     # Convert these indices to ints
     first_index = int(first_index)
     last_index = int(last_index)
-    
+
     # +1 to last_index since they're given to us inclusive, and range()'s second arg is exclusive
     for index in range(first_index, last_index + 1):
         # Convert the number to a string
@@ -72,9 +72,6 @@ for search_range in db_ranges:
             if sequence_count >= 2:
                 invalid_id_sum += index
                 break
-
-     
-
 
 
 print(f'Searched through DB entries...')
